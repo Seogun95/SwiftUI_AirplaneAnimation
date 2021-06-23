@@ -11,7 +11,7 @@ import SwiftUI
 struct SwiftUI_AirplaneAnimationApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            airplaneView()
         }
     }
 }
