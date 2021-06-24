@@ -7,76 +7,81 @@
 
 import SwiftUI
 
+//MARK: BODY
 struct airplaneView: View {
     
-    @State var moveToRight: Bool = false
+    @State var moveToItem: Bool = false
     
-    let skyGradient: LinearGradient = LinearGradient(gradient: Gradient(colors: [Color(hex: 0xfbc2eb), Color(hex: 0xa6c1ee)]), startPoint: .bottom, endPoint: .top)
-    
-    let gardenGradiemt: LinearGradient = LinearGradient(gradient: Gradient(colors: [Color(hex: 0xc1dfc4), Color(hex: 0xe2d1c3)]), startPoint: .leading, endPoint: .trailing)
+    let SkyBackground: LinearGradient = LinearGradient(gradient: Gradient(colors: [.white, Color(hex: 0xfbc2eb), Color(hex: 0xa6c1ee)]), startPoint: .bottom, endPoint: .top)
     
     var body: some View {
         GeometryReader { geo in
-            VStack(alignment: moveToRight ? .trailing : .leading, spacing: 0) {
+            
+            VStack(alignment: moveToItem ? .trailing : .leading, spacing: 0) {
+                
                 Spacer()
-                Image(systemName: "airplane")
                 
-                    .rotationEffect(Angle(degrees: moveToRight ? -30 : -10))
-                    .offset(
-                        x: moveToRight ? 100 : -130,
-                        y: moveToRight ? -200 : 200)
-                    .font(.system(size: 90))
+                Airplane
                 
-                    .animation(Animation.easeIn(duration: 3)
-                                .delay(1.0)
-                                .repeatForever(autoreverses: false))
-                
-                    .foregroundColor(Color(hex: 0xff8882))
                 Spacer()
                 Spacer()
                 
-                
-                
-                HStack(alignment: .bottom) {
-                    
-                    Image(systemName: "figure.wave")
-                        .padding(.leading, 10)
-                    
-                    
-                    Image(systemName: "figure.wave")
-                        .font(.system(size: 40))
-                    
-                    VStack {
-                        
-                        Image(systemName: "figure.walk")
-                            .animation(Animation.easeIn(duration: 5)
-                                        .repeatForever(autoreverses: false))
-                    }
-                    .offset(x: moveToRight ? 100 : 0)
-                    .frame(maxWidth: .infinity, alignment: moveToRight ? .trailing : .leading)
-                    
-                }
-                
+                person
                 .frame(maxWidth: .infinity)
                 .font(.system(size: 70))
-                .foregroundColor(Color(hex: 0x303030))
                 
+                //땅
+                Image("ground")
+                    .resizable()
+                    .frame(width: geo.size.width, height: geo.size.height / 6)
                 
-                Rectangle()
-                    .fill(gardenGradiemt)
-                    .frame(width: geo.size.width, height: geo.size.height / 5)
             }
-            
-            .background(skyGradient)
+            .background(SkyBackground)
             .onAppear(perform: {
-                moveToRight.toggle()
+                moveToItem.toggle()
             })
             .ignoresSafeArea()
         }
     }
+    
+    //some Views
+    private var Airplane: some View {
+        Image(systemName: "airplane")
+            .rotationEffect(Angle(degrees: moveToItem ? -30 : -10))
+            .offset(
+                x: moveToItem ? 100 : -130,
+                y: moveToItem ? -200 : 200)
+            .font(.system(size: 90))
+        
+            .animation(Animation.easeIn(duration: 3)
+                        .delay(1.0)
+                        .repeatForever(autoreverses: false))
+            .foregroundColor(Color(hex: 0xff8882))
+    }
+    
+    private var person: some View {
+        HStack(alignment: .bottom) {
+            
+            Image(systemName: "figure.wave")
+                .padding(.leading, 10)
+            
+            
+            Image(systemName: "figure.wave")
+                .font(.system(size: 40))
+            
+            VStack {
+                
+                Image(systemName: "figure.walk")
+                    .animation(Animation.easeIn(duration: 5)
+                                .repeatForever(autoreverses: false))
+            }
+            .offset(x: moveToItem ? 100 : 0)
+            .frame(maxWidth: .infinity, alignment: moveToItem ? .trailing : .leading)
+        }
+    }
 }
 
-// color Extension
+//MARK: EXTENSION
 extension Color {
     init(hex: UInt, alpha: Double = 1) {
         self.init(
@@ -89,6 +94,7 @@ extension Color {
     }
 }
 
+//MARK: PREVIEWS
 struct airplaneView_Previews: PreviewProvider {
     static var previews: some View {
         airplaneView()
