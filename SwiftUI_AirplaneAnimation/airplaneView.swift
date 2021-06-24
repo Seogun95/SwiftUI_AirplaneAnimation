@@ -26,6 +26,7 @@ struct airplaneView: View {
                         x: moveToRight ? 100 : -130,
                         y: moveToRight ? -200 : 200)
                     .font(.system(size: 90))
+                
                     .animation(Animation.easeIn(duration: 3)
                                 .delay(1.0)
                                 .repeatForever(autoreverses: false))
@@ -33,10 +34,32 @@ struct airplaneView: View {
                     .foregroundColor(Color(hex: 0xff8882))
                 Spacer()
                 Spacer()
-                Image(systemName: "figure.wave")
-                    .font(.system(size: 70))
-                    .padding(.trailing, 20)
-                    .foregroundColor(Color(hex: 0x303030))
+                
+                
+                
+                HStack(alignment: .bottom) {
+                    
+                    Image(systemName: "figure.wave")
+                        .padding(.leading, 10)
+                    
+                    
+                    Image(systemName: "figure.wave")
+                        .font(.system(size: 40))
+                    
+                    VStack {
+                        
+                        Image(systemName: "figure.walk")
+                            .animation(Animation.easeIn(duration: 5)
+                                        .repeatForever(autoreverses: false))
+                    }
+                    .offset(x: moveToRight ? 100 : 0)
+                    .frame(maxWidth: .infinity, alignment: moveToRight ? .trailing : .leading)
+                    
+                }
+                
+                .frame(maxWidth: .infinity)
+                .font(.system(size: 70))
+                .foregroundColor(Color(hex: 0x303030))
                 
                 
                 Rectangle()
