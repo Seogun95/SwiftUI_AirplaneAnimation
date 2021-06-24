@@ -20,11 +20,16 @@ struct airplaneView: View {
             VStack(alignment: moveToRight ? .trailing : .leading, spacing: 0) {
                 Spacer()
                 Image(systemName: "airplane")
-                    .animation(Animation.easeIn(duration: 2)
-                                .delay(2.0)
-                                .repeatForever(autoreverses: false)
-                    )
-                    .font(.system(size: 70))
+                
+                    .rotationEffect(Angle(degrees: moveToRight ? -30 : -10))
+                    .offset(
+                        x: moveToRight ? 100 : -130,
+                        y: moveToRight ? -200 : 200)
+                    .font(.system(size: 90))
+                    .animation(Animation.easeIn(duration: 3)
+                                .delay(1.0)
+                                .repeatForever(autoreverses: false))
+                
                     .foregroundColor(Color(hex: 0xff8882))
                 Spacer()
                 Spacer()
